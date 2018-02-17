@@ -1,14 +1,17 @@
-module SR(
-    input S,
+//////////////////////////////////////////////////////////////////
+module Main(input S,
     input R,
-  input clk,
-    output reg Q,
-    output reg Qbar
+    input clk,
+    output Q,
+    output Qbar
     );
     reg M,N;
-always@ posedge(clk) begin
-M <= S & clk;
-N <= R & clk;
-Q <= M & Qbar;
-Qbar <= N & Q;
+
+always @(posedge clk) begin
+	M <= !(S & clk);
+	N <= !(R & clk);
 end
+assign	Q = !(M & Qbar);
+assign	Qbar = !(N & Q);
+
+endmodule
